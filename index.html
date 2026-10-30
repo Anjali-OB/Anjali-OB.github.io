@@ -295,7 +295,7 @@ try{const j=await(await fetch(GB)).json();$('#gb').innerHTML=(j.entries||[]).len
 $('#gem').innerHTML=h(['👋','😊','🚀','💡','❤️','🔥'],x=>`<button type="button" class="${x===em?'on':''}">${x}</button>`);
 $('#gem').onclick=e=>{if(e.target.tagName!=='BUTTON')return;em=e.target.textContent;[...$('#gem').children].forEach(b=>b.classList.toggle('on',b===e.target))};
 $('#gbs').onclick=async()=>{const n=$('#gbn').value.trim(),m=$('#gbt').value.trim();if(!n||!m){st('Please add your name and a message.');return}st('Posting…');$('#gbs').disabled=true;
-try{const r=await fetch(GB,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,msg:m,emoji:em})}),j=await r.json();if(j.error)st(j.error);else{st('Thank you! Your message is on the wall 💙');$('#gbt').value='';load()}}catch(e){st('Couldn’t post right now. Please try again later.')}$('#gbs').disabled=false};
+try{const r=await fetch(GB,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,msg:m,emoji:em})}),j=await r.json();if(j.error)st(j.error);else{st('Thank you! Your message is on the wall 💙');$('#gbt').value='';const f=$('#gb').firstElementChild;if(f&&f.tagName==='P')f.remove();if(j.entry)$('#gb').insertAdjacentHTML('afterbegin',row(j.entry))}}catch(e){st('Couldn’t post right now. Please try again later.')}$('#gbs').disabled=false};
 load();
 const t1=$('#t1'),t2=$('#t2'),tb=$('#tdl');const up=()=>{const ok=t1.checked&&t2.checked;tb.classList.toggle('off',!ok);$('#tm2').textContent=ok?'Unlocked! Enjoy ✨ Tag me if you build something with it.':'Tick both steps to unlock.'};t1.onchange=t2.onchange=up;tb.onclick=e=>{if(tb.classList.contains('off'))e.preventDefault()};
 })();
